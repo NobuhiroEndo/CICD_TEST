@@ -3,5 +3,5 @@ from . import views
 
 app_name = 'CICD'
 urlpatterns = [
-    path('test/', views.index, name='tes'),
+    path('test/', views.index, name='test'),
 ]
