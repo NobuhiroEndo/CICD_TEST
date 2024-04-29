@@ -27,7 +27,6 @@ jobs:
           script: |
             cd /home/ec2-user/CICD_TEST
             git pull origin master
-            python manage.py collectstatic --no-input
             python manage.py migrate
             sudo systemctl restart gunicorn
             sudo systemctl restart nginx
