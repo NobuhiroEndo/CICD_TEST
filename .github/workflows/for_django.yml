@@ -6,7 +6,40 @@ on:
       - master
 
 jobs:
+  black: 
+    name: Check Syntax with Black
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Run Black
+        run: black .
+    
+  tests:
+    name: Run Tests
+    needs: black
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Run Black
+        run: python manage.py test
+
   deploy:
+    name: Deploy Application
+    needs: [black, tests]
     runs-on: ubuntu-latest
 
     steps:
@@ -16,9 +49,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-      
-      - name: Run Black
-        run: black .
       
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
