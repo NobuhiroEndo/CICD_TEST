@@ -1,1 +1,4 @@
 django-boost
+black
+flake8
+isort
